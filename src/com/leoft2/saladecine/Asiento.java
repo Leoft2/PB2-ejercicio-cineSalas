@@ -29,6 +29,11 @@ public class Asiento {
 	
 	public boolean estaOcupado() {
 		return ocupado;
+	}
+
+	@Override
+	public String toString() {
+		return "Asiento [nombreComprador=" + nombreComprador + ", ocupado=" + ocupado + "]";
 	}	
 	
 }

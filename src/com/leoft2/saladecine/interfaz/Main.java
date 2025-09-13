@@ -1,11 +1,15 @@
-package com.leoft2.saladecine;
+package com.leoft2.saladecine.interfaz;
 
 import java.util.Scanner;
+
+import com.leoft2.saladecine.*;
+
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static SalaCine sala;
     private static Pelicula[] peliculas = new Pelicula[100];
+    static int cantidadPeliculasCargadas = 0;
     
     public static void main(String[] args) {
         inicializarSistema();
@@ -49,6 +53,7 @@ public class Main {
         
         // Película Infantil
         peliculas[9] = new PeliculaInfantil("Frozen", 102, 0);
+        cantidadPeliculasCargadas = 10;
     }
     
     private static void mostrarMenuPrincipal() {
@@ -89,7 +94,7 @@ public class Main {
                     mostrarInfoPelicula();
                     break;
                 case 6:
-                    sala.mostrarButacasDetalle();
+                   sala.mostrarButacasDetalle();
                     break;
                 case 7:
                     reiniciarSala();
@@ -114,7 +119,7 @@ public class Main {
         System.out.println("\n🎬 CATÁLOGO DE PELÍCULAS DISPONIBLES");
         System.out.println("=".repeat(50));
         
-        for (int i = 0; i < peliculas.length; i++) {
+        for (int i = 0; i < cantidadPeliculasCargadas; i++) {
             String genero = obtenerGenero(peliculas[i]);
             System.out.printf("%2d. [%s] %s (%d años+)\n", 
                 (i + 1), genero, peliculas[i].getTitulo(), peliculas[i].getEdadMinima());
@@ -215,18 +220,18 @@ public class Main {
         String confirmacion = scanner.nextLine();
         
         if (confirmacion.equalsIgnoreCase("s") || confirmacion.equalsIgnoreCase("si")) {
-            sala.reiniciarSala();
+            sala.liberarTodaLaSala();
             sala.mostrarButacas();
         } else {
             System.out.println("❌ Operación cancelada.");
         }
     }
     
-    public void mostrarButacas(SalaCine sala) {
+    public static void mostrarButacas(SalaCine sala) {
     	Asiento[][] butacas = sala.getButacas();
     	
     	System.out.println("\n=== ESTADO DE LA SALA ===");
-        if (sala.peliculaEnCartelera != null) {
+        if (sala.getPeliculaEnCartelera() != null) {
             System.out.println("🎬 Película: " + sala.getTitulo());
         }
         System.out.println("📊 Ocupación: " + sala.contarAsientosOcupados() + "/" + sala.getTotalAsientos() + " asientos");
@@ -247,7 +252,7 @@ public class Main {
         System.out.println("O = Libre, X = Ocupado\n");
     }
 
-    public void cambiarPelicula(Pelicula nuevaPelicula) {
+    public static void cambiarPelicula(Pelicula nuevaPelicula) {
     	sala.cambiarPelicula(nuevaPelicula);
     	System.out.println("Pelicula cambiada a: " + nuevaPelicula.getTitulo());
     }
