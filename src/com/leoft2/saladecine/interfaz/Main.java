@@ -137,7 +137,7 @@ public class Main {
             peliculaSeleccionada.mostrarSinopsis();
         } else if (opcion == 11) {
             if (sala.getPeliculaActual() != null) {
-                sala.getPeliculaActual().mostrarSinopsis();
+                System.out.println(sala.getPeliculaActual().mostrarSinopsis());
             } else {
                 System.out.println("❌ No hay película en cartelera actualmente.");
             }
@@ -177,6 +177,9 @@ public class Main {
         int columna = scanner.nextInt();
         System.out.print("Ingrese la edad del cliente: ");
         int edad = scanner.nextInt();
+        
+        fila -= 1;
+        columna -= 1;
         
         boolean exito = sala.venderBoleto(fila, columna, edad, nombreComprador);
         

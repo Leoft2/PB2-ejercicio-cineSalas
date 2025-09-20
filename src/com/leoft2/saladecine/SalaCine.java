@@ -71,7 +71,14 @@ public class SalaCine {
 	}
 
 	public void cambiarPelicula(Pelicula nuevaPelicula) {
-		this.pelicula = nuevaPelicula;
+		if(this.pelicula != nuevaPelicula) {
+			this.pelicula = nuevaPelicula;
+		} else {
+			this.pelicula = null;
+		}
+		
+		
+		
 	}
 
 	public boolean venderBoleto(int fila, int columna, int edad, String nombreComprador) {

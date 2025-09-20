@@ -1,9 +1,7 @@
 package com.leoft2.saladecine;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import static org.junit.Assert.*;
 import java.util.Iterator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class SalaCineTest {
 
-	Pelicula peliculas[] = new Pelicula[4];
+	Pelicula peliculas[] = new Pelicula[11];
 	SalaCine sala1;
 
 	@BeforeEach // o @Before en junit4
@@ -40,7 +38,7 @@ public class SalaCineTest {
 
 		sala1 = new SalaCine(2, 3);
 		
-		//Podria hacer un test de agregar peliculas? como se verificaria?
+		
 	}
 
 	@Test
@@ -130,15 +128,6 @@ public class SalaCineTest {
 		assertEquals(3, sala1.contarAsientosOcupados());
 	}
 
-//	@Test
-//	void mostrarEstadoButacasDeLaSalaDeCine () {
-//		sala1.cambiarPelicula(peliculas[0]);
-//		sala1.venderBoleto(0, 1, 18, "Julian Morga");
-//		boolean verificacion = sala1.mostrarButacasDetalle();
-//		assertTrue(verificacion);
-//		
-//		
-//	}
 
 	@Test
 	void liberarTodosLosAsientosVendidos() {
@@ -162,5 +151,22 @@ public class SalaCineTest {
 		assertEquals(0, sala1.contarAsientosOcupados());
 
 	}
+	
+	@Test
+	void CambiarLaPeliculaProyectadaNoExistosoPorqueSeQuiereCambiarPorLaMismaPelicula() {
+		// peliculas[1] = new PeliculaAccion("Misión Imposible", 150, 13);
+		
+		sala1.cambiarPelicula(peliculas[1]);
+		assertNotNull(sala1.getPeliculaActual());
+	
+		
+		sala1.cambiarPelicula(peliculas[1]);
+		assertNull(sala1.getPeliculaActual());
+		
+	}
 
+	
+	
+	
+	
 }
