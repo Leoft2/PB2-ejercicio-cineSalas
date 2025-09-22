@@ -14,7 +14,7 @@ public class PeliculaAccion extends Pelicula {
 		sinopsis += "Titulo: " + super.getTitulo() + '\n';
 		sinopsis += "Duración en minutos: " + super.getDuracion() + '\n';
 		sinopsis += "Edad Minima: " + super.getEdadMinima()  + '\n';
-		sinopsis += "Las peliculas de accion se caracterizan por tener un alto grado de violancia, explosibos impresionantes y heroes que salvan al mundo.";
+		sinopsis += "Las peliculas de accion se caracterizan por tener un alto grado de violancia, explosivos impresionantes y heroes que salvan al mundo.";
 		return sinopsis;
 		
 	}

@@ -124,6 +124,7 @@ public class SalaCineTest {
 
 		assertEquals(3, sala1.contarAsientosOcupados());
 		assertFalse(sala1.liberarAsiento(5, 10));
+		//assertFalse(sala1.liberarAsiento(1, 3)); // error out of bounds
 		assertFalse(sala1.liberarAsiento(-1, -1));
 		assertEquals(3, sala1.contarAsientosOcupados());
 	}

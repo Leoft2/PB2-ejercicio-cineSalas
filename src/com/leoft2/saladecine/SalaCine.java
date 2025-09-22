@@ -37,8 +37,7 @@ public class SalaCine {
 	}
 
 	public Pelicula getPeliculaEnCartelera() {
-		return pelicula; // atributo pelicula es para la pelicula que dan en la sala o solo lo q aparece
-							// en cartelera
+		return pelicula;
 	}
 
 	public Pelicula getPeliculaActual() {
@@ -49,39 +48,54 @@ public class SalaCine {
 		return pelicula.getTitulo();
 	}
 
-	public boolean mostrarButacasDetalle() {
+	public void mostrarButacasDetalle() {
 
-		String mensaje = "";
+		if (getPeliculaEnCartelera() == null) {
+			System.out.println("❌ No hay película en cartelera. Primero seleccione una película.");
+			return;
+		}
+		System.out.println("🎬 Película: " + getTitulo());
+		System.out.println("📊 Ocupación: " + contarAsientosOcupados() + "/" + getTotalAsientos() + " asientos");
+		System.out.print("   ");
+		for (int j = 0; j < butacas[0].length; j++) {
+			System.out.printf("%10d", j + 1);
+		}
+		System.out.println();
 
 		for (int i = 0; i < butacas.length; i++) {
+			System.out.printf("%2d ", i + 1);
 			for (int j = 0; j < butacas[i].length; j++) {
 
-				if (this.butacas[i][j].estaOcupado()) {
-					mensaje += "[" + this.butacas[i][j].getNombreComprador() + "] ";
+				if (butacas[i][j].estaOcupado()) {
+					System.out.printf("%10s", "[" + butacas[i][j].getNombreComprador() + "]");
 				} else {
-					mensaje += "[vacio]";
+					System.out.printf("%10c", 'O');
 				}
-			}
-			mensaje += "\n";
-		}
 
-		System.out.println(mensaje);
-		return true;
+			}
+			System.out.println();
+		}
+		System.out.println("O = Libre, Nombre del comprador = Ocupado\n");
 
 	}
 
 	public void cambiarPelicula(Pelicula nuevaPelicula) {
-		if(this.pelicula != nuevaPelicula) {
+		if (this.pelicula != nuevaPelicula) {
 			this.pelicula = nuevaPelicula;
 		} else {
 			this.pelicula = null;
 		}
-		
-		
-		
+
 	}
 
 	public boolean venderBoleto(int fila, int columna, int edad, String nombreComprador) {
+
+		if (fila < 0 || columna < 0)
+			return false;
+
+		if (fila >= butacas.length || columna >= butacas[0].length) {
+			return false;
+		}
 
 		if (butacas[fila][columna].estaOcupado())
 			return false;
@@ -100,7 +114,12 @@ public class SalaCine {
 		if (fila < 0 || columna < 0)
 			return false;
 
-		if (fila <= butacas.length && columna <= butacas[0].length) {
+		if (fila < butacas.length && columna < butacas[0].length) {
+
+			if (!butacas[fila][columna].estaOcupado()) {
+				return false;
+			}
+
 			butacas[fila][columna].liberar();
 			return true;
 		}
@@ -108,31 +127,36 @@ public class SalaCine {
 	}
 
 	public void mostrarButacas() {
-		String mensaje = "";
+
+		System.out.println("\n=== ESTADO DE LA SALA ===");
+
+		System.out.println("📊 Ocupación: " + contarAsientosOcupados() + "/" + getTotalAsientos() + " asientos");
+		System.out.print("   ");
+		for (int j = 0; j < butacas[0].length; j++) {
+			System.out.printf("%3d", j + 1);
+		}
+		System.out.println();
 
 		for (int i = 0; i < butacas.length; i++) {
+			System.out.printf("%2d ", i + 1);
 			for (int j = 0; j < butacas[i].length; j++) {
-
-				if (this.butacas[i][j].estaOcupado()) {
-					mensaje += "[ocupado]";
-				} else {
-					mensaje += "[vacio]";
-				}
+				char estado = butacas[i][j].estaOcupado() ? 'X' : 'O';
+				System.out.printf("%3c", estado);
 			}
-			mensaje += "\n";
+			System.out.println();
 		}
-
-		System.out.println(mensaje);
+		System.out.println("O = Libre, X = Ocupado\n");
 
 	}
 
-	public boolean liberarTodaLaSala() {
+	public void liberarTodaLaSala() {
+
 		for (int i = 0; i < butacas.length; i++) {
 			for (int j = 0; j < butacas[i].length; j++) {
 				this.butacas[i][j].liberar();
 			}
 		}
-		return true;
+
 	}
 
 }
