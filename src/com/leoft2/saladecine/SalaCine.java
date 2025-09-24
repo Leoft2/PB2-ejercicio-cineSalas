@@ -40,9 +40,6 @@ public class SalaCine {
 		return pelicula;
 	}
 
-	public Pelicula getPeliculaActual() {
-		return pelicula;
-	}
 
 	public String getTitulo() {
 		return pelicula.getTitulo();
@@ -102,8 +99,9 @@ public class SalaCine {
 
 		if (this.pelicula.getEdadMinima() > edad)
 			return false;
+		
 
-		if (nombreComprador == null)
+		if (nombreComprador == null || nombreComprador == "")
 			return false;
 
 		butacas[fila][columna].ocupar(nombreComprador);

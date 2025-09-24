@@ -31,9 +31,5 @@ public class Asiento {
 		return ocupado;
 	}
 
-	@Override
-	public String toString() {
-		return "Asiento [nombreComprador=" + nombreComprador + ", ocupado=" + ocupado + "]";
-	}	
 	
 }

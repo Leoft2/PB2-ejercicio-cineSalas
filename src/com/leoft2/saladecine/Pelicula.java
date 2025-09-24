@@ -28,14 +28,9 @@ public abstract class Pelicula {
 		return edadMinima;
 	}
 	
+	
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (this.getClass() != obj.getClass())
-			return false;
+	public boolean equals(Object obj) { 
 		Pelicula other = (Pelicula) obj;
 		return duracion == other.duracion && edadMinima == other.edadMinima && Objects.equals(titulo, other.titulo);
 	}
