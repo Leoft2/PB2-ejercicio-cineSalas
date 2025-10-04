@@ -48,7 +48,7 @@ public class SalaCineTest {
 		sala1.cambiarPelicula(peliculas[0]);
 		assertEquals(2, sala1.getButacas().length);
 		assertEquals(3, sala1.getButacas()[0].length);
-		sala1.mostrarButacas();
+		//sala1.mostrarButacas();
 
 		assertEquals(pelicomparacion, sala1.getPeliculaEnCartelera());
 	}
