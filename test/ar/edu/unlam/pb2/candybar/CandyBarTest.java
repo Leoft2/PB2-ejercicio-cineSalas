@@ -2,6 +2,12 @@ package ar.edu.unlam.pb2.candybar;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -62,8 +68,58 @@ public class CandyBarTest {
         assertFalse(agregado);
         assertEquals(5, contarProductosEnInventario());
     }
+    
+    @Test
+    public void testAgregarProductosConList() {
+    	
+    	 assertTrue(candyBar.agregarProductoList(palomitas));
+         assertEquals(1, candyBar.contarProductosEnInventarioList());
+    	 
+         assertTrue(candyBar.agregarProductoList(refresco));
+         assertEquals(2, candyBar.contarProductosEnInventarioList());
+    	
+    }
+    
+    @Test 
+    public void testAgregarProductosRepetidosConList() {
+    	
+         assertTrue(candyBar.agregarProductoList(palomitas));
+         assertEquals(1, candyBar.contarProductosEnInventarioList());
+         assertTrue(candyBar.agregarProductoList(palomitas));
+         assertEquals(2, candyBar.contarProductosEnInventarioList());
+    	
+    }
+    
+    
+    @Test
+    public void testEliminarProductoExistenteConList() {
+    	candyBar.agregarProductoList(palomitas);
+    	candyBar.agregarProductoList(refresco);
+    	assertEquals(2, candyBar.contarProductosEnInventarioList());
+    	
+        boolean eliminado = candyBar.eliminarProductoList("Palomitas");
+        assertTrue(eliminado);
+        assertEquals(1, candyBar.contarProductosEnInventarioList());
+        
+        
+    }
+    
+    
+    @Test
+    public void testEliminarProductoNoExistenteConList() {
+    	List<Producto> listaProductos;
+    	listaProductos = candyBar.obtenerInventarioList();
+    	listaProductos.add(palomitas);
+        // duda: hacer un set para listaProductos en la clase?
+    	
+        boolean eliminado = candyBar.eliminarProductoList("Chocolate");
+        assertFalse(eliminado);
+        assertEquals(1, candyBar.contarProductosEnInventarioList());
+    }
+    
+    
 
-    private int contarProductosEnInventario() {
+	private int contarProductosEnInventario() {
         int count = 0;
         for (Producto p : candyBar.obtenerInventario()) {
             if (p != null) {
@@ -75,4 +131,10 @@ public class CandyBarTest {
         
         return count;
     }
+    
+	
+	
+	
+    
+    
 }

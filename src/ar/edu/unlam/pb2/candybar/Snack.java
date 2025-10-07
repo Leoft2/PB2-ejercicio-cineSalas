@@ -14,10 +14,10 @@ public class Snack extends Producto {
 	@Override
 	public double calcularPrecioFinal() {
 		
-		if (tamano.name() == "GRANDE") {
+		if (tamano == Tamano.GRANDE) {
 			return precioBase * 1.2;
 		}
-		if (tamano.name() == "PEQUENO" ) {
+		if (tamano == Tamano.PEQUENO) {
 			return precioBase * 0.85;
 		}
 		

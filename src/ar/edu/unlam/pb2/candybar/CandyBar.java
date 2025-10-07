@@ -1,8 +1,14 @@
 package ar.edu.unlam.pb2.candybar;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
 public class CandyBar {
 
 	Producto productos [];
+	List<Producto> listaProductos = new ArrayList<Producto>();
 	
 	public CandyBar(int capacidad) {
 		productos = new Producto [5];
@@ -38,8 +44,36 @@ public class CandyBar {
 		
 		
 	}
+
+	public boolean agregarProductoList(Producto producto) {
+		listaProductos.add(producto);
+		return true;
+	}
+
+	public List<Producto> obtenerInventarioList() {
+		return listaProductos;
+	}
+
+	public int contarProductosEnInventarioList() {
+		return listaProductos.size();
+	}
+
+	public boolean eliminarProductoList(String nombreProducto) {
+		Iterator<Producto> itr = listaProductos.iterator();
+		while (itr.hasNext()) {
+			Producto p = itr.next();
+			if(p.getNombre() == nombreProducto) {
+				itr.remove();
+				return true;
+			}
+			
+		}
+		return false;
 		
 		
+	}
+		
+	
 		
 		
 	}

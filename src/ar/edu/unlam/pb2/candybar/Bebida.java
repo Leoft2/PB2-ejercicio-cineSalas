@@ -11,7 +11,7 @@ public class Bebida extends Producto {
 
 	@Override
 	public double calcularPrecioFinal() {
-		if (contenedor.name() == "BOTELLA") {
+		if (contenedor == Contenedor.BOTELLA) {
 			return precioBase * 1.1;
 		}
 	
