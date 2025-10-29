@@ -18,6 +18,30 @@ public class Bebida extends Producto {
 		return precioBase;
 	}
 
+	@Override
+	public int compareTo(Producto o) {
+		
+	int comparacionStock = this.stock.compareTo(o.getStock());
+		
+		if(comparacionStock > 0) {
+			return 1;			
+		} else  if (comparacionStock < 0) {
+			return -1;
+		}
+		
+		int comparacionNombre = this.nombre.compareTo(o.getNombre());
+		
+		if (comparacionNombre > 0) {
+			return 1;
+		} else if (comparacionNombre < 0) {
+			return -1;
+		}
+		
+		return this.precioBase.compareTo(o.getPrecioBase());
+		
+		//return Integer.compare(this.stock, o.stock);
+	}
+
 
 
 }

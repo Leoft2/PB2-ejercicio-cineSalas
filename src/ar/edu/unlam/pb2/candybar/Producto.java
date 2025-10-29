@@ -1,10 +1,12 @@
 package ar.edu.unlam.pb2.candybar;
 
-public abstract class Producto {
+import java.util.Objects;
+
+public abstract class Producto implements Comparable<Producto> {
 
 	protected String nombre;
-	protected double precioBase;
-	protected int stock;
+	protected Double precioBase;
+	protected Integer stock;
 	
 	
 	public Producto(String nombre,double precioBase, int stock) {
@@ -19,7 +21,7 @@ public abstract class Producto {
 		this.stock = stock;
 	}
 
-	public double getPrecioBase() {
+	public Double getPrecioBase() {
 		return precioBase;
 	}
 
@@ -27,10 +29,28 @@ public abstract class Producto {
 		return nombre;
 	}
 	
+	public Integer getStock() {
+		return stock;
+	}
 	
 	public abstract double calcularPrecioFinal();
-	
-		
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nombre, precioBase, stock);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Producto other = (Producto) obj;
+		return Objects.equals(nombre, other.nombre) && Objects.equals(precioBase, other.precioBase)
+				&& Objects.equals(stock, other.stock);
+	}
 
 }

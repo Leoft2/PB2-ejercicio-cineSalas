@@ -3,6 +3,10 @@ package com.leoft2.saladecine;
 
 import static org.junit.Assert.*;
 
+import java.nio.channels.FileChannel.MapMode;
+import java.util.Map;
+import java.util.TreeMap;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -261,6 +265,36 @@ public class SalaCineTest {
 		
 		
 	}
+	
+	@Test
+	void crearSalaCineConMap() {
+		
+		//Crear una sala de cine que tenga 3 filas y 3 columnas, con un total de 9 butacas
+		
+		// letra sea fila
+		//numero sea columna 
+		// ejemplo: A1, B2, C5
+		// Object -> asiento: nombreOcupante y estadoSiOcupado /// espectador: datos nombre y edad
+		//Map<String, Asiento> butacas = new TreeMap<String, Asiento>();
+		
+		SalaCine sala2 = new SalaCine(3,3);
+		Map<String, Asiento> butacasSala2;
+		PeliculaAccion pelicomparacion = new PeliculaAccion("Piratas del Caribe 1", 200, 14);// (peli1= 0x1235)
+		
+		//butacasSala2 = sala2.getSalaCineConMap();
+		sala2.cambiarPelicula(peliculas[0]);
+		
+		
+		//assertEquals(9, butacasSala2.size());
+		//assertTrue(butacasSala2.containsKey("A1"));
+		/// x9
+	
+		assertEquals(pelicomparacion, sala2.getPeliculaEnCartelera());
+		
+		
+		//Problema: falta la pelicula y  el objeto espectador o asiento??
+	}
+	
 	
 	
 
