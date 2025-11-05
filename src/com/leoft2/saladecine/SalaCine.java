@@ -1,19 +1,53 @@
 package com.leoft2.saladecine;
 
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class SalaCine {
 	private Asiento[][] butacas;
 	private Pelicula pelicula;
+	private Integer cantidadMaximaButacas = 0;
+	Map<String, Asiento> butacasSala;
 
 	public SalaCine(int fila, int columna) {
-		this.butacas = new Asiento[fila][columna];
+//		this.butacas = new Asiento[fila][columna];
+//		butacasSala = new LinkedHashMap<String, Asiento>();
+//
+//		for (int i = 0; i < fila; i++) {
+//			for (int j = 0; j < columna; j++) {
+//				this.butacas[i][j] = new Asiento();
+//			}
+//		}
+//		
+//		 for (int i = 0; i < fila; i++) {
+//	            char letraFila = (char) ('A' + i); // A, B, C...
+//	            for (int j = 1; j <= columna; j++) {
+//	                String codigo = letraFila + String.valueOf(j);
+//	                butacasSala.put(codigo, new Asiento());
+//	            }
+//	        }
+//
+//		this.cantidadMaximaButacas = fila*columna;
+		
+		  butacas = new Asiento[fila][columna];
+		    butacasSala = new LinkedHashMap<>();
 
-		for (int i = 0; i < fila; i++) {
-			for (int j = 0; j < columna; j++) {
-				this.butacas[i][j] = new Asiento();
-			}
-		}
+		    for (int i = 0; i < fila; i++) {
+		        char letraFila = (char) ('A' + i); // A, B, C...
+		        for (int j = 0; j < columna; j++) {
+		            String codigo = letraFila + String.valueOf(j + 1);
+
+		            Asiento asiento = new Asiento(); 
+		            butacas[i][j] = asiento;         
+		            butacasSala.put(codigo, asiento); 
+		        }
+		    }
+
+		    this.cantidadMaximaButacas = fila * columna;
+		
+		
+		
 	}
 
 	public Asiento[][] getButacas() {
@@ -157,4 +191,40 @@ public class SalaCine {
 
 	}
 
+	public Map<String, Asiento> getSalaCineConMap() {
+		return butacasSala;
+	}
+
+	public boolean venderBoletoMap(Character letraFila, Integer codigoColumna, Integer edad, String nombreComprador) {
+
+		String codigoAsiento = letraFila + String.valueOf(codigoColumna);
+		Asiento butaca = butacasSala.get(codigoAsiento);
+
+		if (this.pelicula.getEdadMinima() > edad)
+			return false;
+
+		if (nombreComprador == null || nombreComprador == "")
+			return false;
+
+		if (butaca == null) {
+			return false;
+		}
+
+		if (butaca.estaOcupado()) {
+			return false;
+		}
+
+		butaca.ocupar(nombreComprador);
+		System.out.println("Vendiendo: " + codigoAsiento + " → " + butaca);
+
+		return true;
+	}
+
+	
+	
+	public Asiento getAsiento(String codigo) {
+		System.out.println("Obteniendo: " + codigo + " → " + butacasSala.get(codigo));
+	    return butacasSala.get(codigo);
+	}
+	
 }
