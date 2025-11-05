@@ -52,5 +52,22 @@ public abstract class Producto implements Comparable<Producto> {
 		return Objects.equals(nombre, other.nombre) && Objects.equals(precioBase, other.precioBase)
 				&& Objects.equals(stock, other.stock);
 	}
+	
+	public int compareTo(Producto o) {
+		
+		int comparacionStock = this.stock.compareTo(o.getStock());
+		
+		if(comparacionStock > 0) {
+			return 1;			
+		} else  if (comparacionStock < 0) {
+			return -1;
+		}
+		
+		return this.nombre.compareTo(o.getNombre());
+		
+		//return Integer.compare(this.stock, o.stock);
+	}
+	
+	
 
 }

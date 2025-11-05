@@ -8,6 +8,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
+import ar.edu.unlam.pb2.candybar.excepciones.ProductoDuplicadoException;
+import ar.edu.unlam.pb2.candybar.excepciones.ProductoNoEncontradoException;
+
 
 public class CandyBar {
 
@@ -87,6 +90,11 @@ public class CandyBar {
 	public boolean agregarProductoSet(Producto producto) {
 		
 		if(listaSeleccionadaSet.size() < CANTIDAD_MAXIMA_PRODUCTOS) {
+			
+			if (listaSeleccionadaSet.contains(producto)) {
+				throw new ProductoDuplicadoException("El producto " + producto.getNombre() + " ya se encuentra agregado en el inventario de Candy bar");
+			}
+			
 			return listaSeleccionadaSet.add(producto);
 		}
 		return false;
@@ -113,6 +121,14 @@ public class CandyBar {
 
 		this.listaSeleccionadaSet = listaAElegirSet;
 		
+	}
+
+	public boolean buscarProductoSet(Producto producto) {
+		
+		if (listaSeleccionadaSet.contains(producto)) {
+			return true;
+		}
+		throw new ProductoNoEncontradoException("El producto " + producto.getNombre() + " no se encuentra en el inventario de Candy bar");
 	}
 
 

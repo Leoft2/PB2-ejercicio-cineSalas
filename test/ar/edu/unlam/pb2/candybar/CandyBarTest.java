@@ -15,6 +15,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
+import ar.edu.unlam.pb2.candybar.excepciones.ProductoDuplicadoException;
+import ar.edu.unlam.pb2.candybar.excepciones.ProductoNoEncontradoException;
+
 public class CandyBarTest {
 
     private CandyBar candyBar;
@@ -161,24 +164,6 @@ public class CandyBarTest {
     // TESTING CON COLECCION SET
     
     
-    @Test 
-    public void testQueSeAgregenProductosyNoDejeAgregarProductosRepetidosConSet() {
-    	
-    	// Eligo la lista de set que quiero usar
-    	candyBar.elegirListaSet(listaProductosHashSet);
-    	
-    	//Agrego dos productos diferentes y verifico que se agregen
-         assertTrue(candyBar.agregarProductoSet(palomitas));
-         assertEquals(1, candyBar.contarProductosEnInventarioSet());
-         assertTrue(candyBar.agregarProductoSet(refresco));
-         assertEquals(2, candyBar.contarProductosEnInventarioSet());
-         
-         //Agrego 1 producto que ya fue agregado a la lista
-         assertFalse(candyBar.agregarProductoSet(palomitas));
-         assertEquals(2, candyBar.contarProductosEnInventarioSet());
-         
-    }
-    
     @Test
     public void testQue3ProductosSeOrdenenPorCantidadDeStockEnOrdenNaturalConSet() {
     	
@@ -290,6 +275,68 @@ public class CandyBarTest {
     	
     	
     }
+    
+    
+    // TESTING CON EXCEPCIONES
+    
+    // PRIMER TEST PARA COLECCION SET
+    @Test (expected = ProductoDuplicadoException.class)
+    public void testQueAlQuererAgregarUnProductoQueEstaDuplicadoNoPermitaAgregarlaAlListadoConSet() {
+    	
+    	//Realizar el manejo de excepcion: ProductoDuplicadoException, (chequeen que el add devuelve true false....)
+    	
+    	// Eligo la lista de set que quiero usar
+    	candyBar.elegirListaSet(listaProductosHashSet);
+    	
+    	//Agrego dos productos diferentes
+         assertTrue(candyBar.agregarProductoSet(palomitas));
+         assertEquals(1, candyBar.contarProductosEnInventarioSet());
+         assertTrue(candyBar.agregarProductoSet(refresco));
+         assertEquals(2, candyBar.contarProductosEnInventarioSet());
+         
+         //Agrego 1 producto que ya fue agregado a la lista y que se considera duplicado
+         candyBar.agregarProductoSet(palomitas);
+         assertEquals(2, candyBar.contarProductosEnInventarioSet());
+    	
+    }
+    
+    @Test
+    public void testQueAlQuererEncontrarUnProductoQueExistaEnElInventarioMeDevuelvaTrue() {
+    	
+    	// Eligo la lista de set que quiero usar
+    	candyBar.elegirListaSet(listaProductosHashSet);
+    	
+    	//Agrego productos
+        assertTrue(candyBar.agregarProductoSet(refresco));
+        assertTrue(candyBar.agregarProductoSet(caramelos));
+        assertTrue(candyBar.agregarProductoSet(palomitas));
+    	
+    	//Busco un producto que exista en el inventario de Candy bar  
+        assertTrue(candyBar.buscarProductoSet(palomitas));
+    }
+    
+    
+    @Test (expected = ProductoNoEncontradoException.class)
+    public void testQueAlQuererEncontrarUnProductoQueNoExisteEnElInventarioLanzeExcepcionYConSet() {
+    	
+    	//Realizar el manejo de excepcion: ProductoNoEncontradoException, (chequeen que el add devuelve true false....)
+    	
+    	// Eligo la lista de set que quiero usar
+    	candyBar.elegirListaSet(listaProductosHashSet);
+    	
+    	//Agrego productos
+        assertTrue(candyBar.agregarProductoSet(refresco));
+        assertTrue(candyBar.agregarProductoSet(caramelos));
+        assertTrue(candyBar.agregarProductoSet(palomitas));
+    	
+    	//Busco un producto que exista en el inventario de Candy bar  
+        assertTrue(candyBar.buscarProductoSet(palomitas));
+        
+        //Busco un producto que no exista en el inventario de Candy bar y lanze excepcion
+        candyBar.buscarProductoSet(nachos);
+    }
+    
+    
     
     
     
